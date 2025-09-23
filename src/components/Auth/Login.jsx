@@ -40,7 +40,10 @@ const Login = ({ handleLogin }) => {
               required
               type="email"
               placeholder="you@example.com"
-              className="w-full border border-gray-600 rounded-lg px-4 py-3 text-gray-900 bg-gray-100 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 placeholder-gray-500"
+              className="w-full border border-gray-600 rounded-lg px-4 py-3 
+                         text-white bg-gray-900
+                         focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
+                         transition-all duration-200 placeholder-gray-400"
             />
           </div>
 
@@ -59,7 +62,10 @@ const Login = ({ handleLogin }) => {
               required
               type="password"
               placeholder="Enter your password"
-              className="w-full border border-gray-600 rounded-lg px-4 py-3 text-gray-900 bg-gray-100 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 placeholder-gray-500"
+              className="w-full border border-gray-600 rounded-lg px-4 py-3 
+                         text-white bg-gray-900
+                         focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 
+                         transition-all duration-200 placeholder-gray-400"
             />
           </div>
 
