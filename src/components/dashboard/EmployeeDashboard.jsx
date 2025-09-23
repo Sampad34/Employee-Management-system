@@ -1,7 +1,7 @@
 
 
 import TaskListNumbers from '../others/TaskListNumbers'
-import TaskList from '../TaskList/TaskList'
+import TaskList from '../taskList/TaskList'
 
 const EmployeeDashboard = (props) => {
 
