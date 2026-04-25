@@ -1,54 +1,87 @@
 import { useEffect, useState } from "react";
+import { LogOut, User, LayoutDashboard, Menu, X } from "lucide-react";
 
-// Header component receives props from parent: App.jsx
 const Header = (props) => {
   const { changeUser, userData, role } = props;
-
-  // State to store the display name (either Admin or Employee first name)
   const [username, setUsername] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // When userData or role changes, update the username display
   useEffect(() => {
     if (role === "admin") {
       setUsername("Admin");
     } else if (role === "employee" && userData) {
-      setUsername(userData.firstName || "Employee"); // fallback if no name
+      setUsername(userData.firstName || "Employee");
     } else {
       setUsername("");
     }
   }, [userData, role]);
 
-  // Function to log out user
   const logOutUser = () => {
-    // Clear local storage
-    localStorage.setItem("loggedInUser", "");
-
-    // Reset user in parent App component
-    changeUser(null);
-
-    // Optional: force reload if needed
-    // window.location.reload();
+    changeUser();
   };
 
-  // Render the header
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 bg-gradient-to-r from-gray-500 to-gray-600 text-white shadow-lg ">
-      {/* Welcome message */}
-      <div className="text-center sm:text-left">
-        <h1 className="text-xl sm:text-2xl font-medium">Welcome</h1>
-        <span className="text-2xl sm:text-3xl font-semibold block mt-1">
-          {username} 👋
-        </span>
-      </div>
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg">
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center">
+              <LayoutDashboard className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-white">TaskFlow</h1>
+              <p className="text-xs text-gray-400">Task Management System</p>
+            </div>
+          </div>
 
-      {/* Logout button */}
-      <button
-        onClick={logOutUser}
-        className="bg-blue-400 text-blue-600 hover:text-white hover:bg-blue-600 font-semibold px-6 py-2 rounded-full border-none outline-none cursor-pointer shadow-md transition-all duration-300 ease-in-out"
-      >
-        Log Out
-      </button>
-    </div>
+          {/* Desktop Welcome & Logout */}
+          <div className="hidden md:flex items-center gap-6">
+            <div className="text-right">
+              <p className="text-sm text-gray-400">Welcome back,</p>
+              <p className="text-lg font-semibold text-white">{username}</p>
+            </div>
+            <div className="w-px h-10 bg-gray-700"></div>
+            <button
+              onClick={logOutUser}
+              className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white 
+                       px-4 py-2 rounded-lg transition-all duration-300 border border-red-500/20 hover:border-red-500"
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Logout</span>
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg bg-gray-700 text-white"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden mt-4 pt-4 border-t border-gray-700">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <p className="text-sm text-gray-400">Welcome back,</p>
+                <p className="text-lg font-semibold text-white">{username}</p>
+              </div>
+              <button
+                onClick={logOutUser}
+                className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white 
+                         px-3 py-1.5 rounded-lg transition-all duration-300"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>Logout</span>
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
   );
 };
 
